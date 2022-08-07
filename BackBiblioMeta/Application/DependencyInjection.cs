@@ -10,7 +10,7 @@ namespace Application
         {
             //services.AddSingleton<IService, Service>();
             services.AddMediatR(Assembly.GetExecutingAssembly());
-            //services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }
     }

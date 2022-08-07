@@ -9,7 +9,7 @@ namespace Application.Common.Mappers
     {
         public MappingProfile()
         {
-            CreateMap<Usuario, UsuarioDto>();
+            CreateMap<Usuario, ResponseUsuarioDto>();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Application.Features.UserFeatures.Commands;
 using Application.Features.UserFeatures.Queries;
-using Domain;
+using Application.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +20,7 @@ namespace BackBiblioMeta.Controllers
 
         [HttpGet(Name = "getUser")]
         // It should return a UsuarioDTO object list
-        public async Task<IEnumerable<Usuario>> GetUsers()
+        public async Task<IEnumerable<ResponseUsuarioDto>> GetUsers()
         {
             return await _mediator.Send(new GetUserListQuery());
         }
@@ -28,7 +28,7 @@ namespace BackBiblioMeta.Controllers
         [HttpGet(Name = "LoginUser")]
         public async Task<IActionResult> LoginUser(string alias, string pass)
         {
-            return Ok(await _mediator.Send(new GetUsuerByAliasPasswordQuery { Alias = alias, Password = pass }));
+            return Ok(await _mediator.Send(new GetUserByAliasPasswordQuery { Alias = alias, Password = pass }));
         }
 
         [HttpPost(Name = "postUser")]

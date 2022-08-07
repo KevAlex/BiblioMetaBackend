@@ -1,27 +1,29 @@
 ﻿using Application.Common.Interfaces;
-using Domain;
+using Application.ViewModels;
+using AutoMapper;
 using MediatR;
 
 namespace Application.Features.UserFeatures.Queries
 {
-    public class GetUserListQuery : IRequest<IEnumerable<Usuario>>
+    public class GetUserListQuery : IRequest<IEnumerable<ResponseUsuarioDto>>
     {
-        public class GetUserListQueryHandler : IRequestHandler<GetUserListQuery, IEnumerable<Usuario>>
+        public class GetUserListQueryHandler : IRequestHandler<GetUserListQuery, IEnumerable<ResponseUsuarioDto>>
         {
             private readonly IApplicationDbContext _applicationDbContext;
-            //private readonly IMapper _mapper;
+            private readonly IMapper _mapper;
 
-            public GetUserListQueryHandler(IApplicationDbContext applicationDbContext)
+            public GetUserListQueryHandler(IApplicationDbContext applicationDbContext, IMapper mapper)
             {
                 _applicationDbContext = applicationDbContext;
+                _mapper = mapper;
             }
-            public async Task<IEnumerable<Usuario>> Handle(GetUserListQuery request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<ResponseUsuarioDto>> Handle(GetUserListQuery request, CancellationToken cancellationToken)
             {
 
-                var usuarios = _applicationDbContext.Usuarios.ToList();
-                if (usuarios == null) return null;
+                var usuariosList = _applicationDbContext.Usuarios.ToList();
+                if (usuariosList == null) return null;
 
-                return usuarios;
+                return _mapper.Map<List<ResponseUsuarioDto>>(usuariosList);
             }
         }
     }
