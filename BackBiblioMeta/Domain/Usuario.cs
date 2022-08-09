@@ -13,5 +13,7 @@
         public string Password { get; set; }
         public string Birth { get; set; }
 
+        public ICollection<Libro> BookList { get; set; }
+
     }
 }

@@ -12,5 +12,8 @@
 
         public string OperationType { get; set; }
 
+        public int UsuarioId { get; set; }
+        public Usuario Usuario { get; set; }
+
     }
 }
