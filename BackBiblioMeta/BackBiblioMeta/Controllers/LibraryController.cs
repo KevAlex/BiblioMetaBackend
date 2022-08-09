@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application.Features.LibraryFeatures.Commands;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackBiblioMeta.Controllers
@@ -15,9 +16,9 @@ namespace BackBiblioMeta.Controllers
         }
 
         [HttpPost(Name = "postBook")]
-        public async Task<IActionResult> AddBookUser()
+        public async Task<IActionResult> AddBookUser(OperationBookCommand command)
         {
-            return Ok("");
+            return Ok(await _mediator.Send(command));
         }
 
         [HttpPost(Name = "deleteBook")]
