@@ -34,9 +34,14 @@ namespace Application.Features.LibraryFeatures.Commands
             /// </summary>
             public async Task<int> Handle(OperationBookCommand command, CancellationToken cancellationToken)
             {
-                try
+
+                var isInList = _applicationDbContext.Usuarios.Where(x => x.Alias == command.Alias).FirstOrDefault();
+
+                if (isInList != null)
                 {
+
                     var libro = new Libro();
+                    libro.UsuarioId = isInList.Id;
                     libro.Title = command.Title;
                     libro.Author = command.Author;
                     libro.Year = command.Year;
@@ -46,28 +51,22 @@ namespace Application.Features.LibraryFeatures.Commands
                     _applicationDbContext.Libros.Add(libro);
                     _applicationDbContext.SaveChangesAsync().Wait();
 
-                    var isInList = _applicationDbContext.Usuarios.Where(x => x.Alias == command.Alias).FirstOrDefault();
-
-                    if (isInList != null)
+                    try
                     {
                         isInList.BookList.Add(libro);
                         await _applicationDbContext.SaveChangesAsync();
-                        return isInList.Id;
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        return 0;
+                        Console.WriteLine("***** " + ex.ToString());
                     }
 
+                    return isInList.Id;
                 }
-                catch (Exception ex)
+                else
                 {
-
-                    Console.WriteLine("Transacción no pudo ser hechas" + ex.ToString());
                     return 0;
-
                 }
-
 
             }
         }
