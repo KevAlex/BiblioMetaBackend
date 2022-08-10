@@ -1,6 +1,4 @@
-﻿using Domain;
-
-namespace Application.ViewModels
+﻿namespace Application.ViewModels
 {
     public class ResponseUsuarioDto
     {
@@ -11,7 +9,6 @@ namespace Application.ViewModels
 
         public string Email { get; set; }
 
-        public ICollection<Libro> Libros { get; set; }
 
     }
 }

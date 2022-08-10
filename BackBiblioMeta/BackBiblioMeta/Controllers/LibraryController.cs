@@ -1,4 +1,6 @@
 ﻿using Application.Features.LibraryFeatures.Commands;
+using Application.Features.LibraryFeatures.Queries;
+using Application.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +15,13 @@ namespace BackBiblioMeta.Controllers
         public LibraryController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet(Name = "getUserBook")]
+        // It should return a UsuarioDTO object list
+        public async Task<IEnumerable<ResponseLibroDto>> GetUserBook()
+        {
+            return await _mediator.Send(new UserBookQuery());
         }
 
         [HttpPost(Name = "postBook")]

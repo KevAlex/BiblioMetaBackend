@@ -10,6 +10,7 @@ namespace Application.Common.Mappers
         public MappingProfile()
         {
             CreateMap<Usuario, ResponseUsuarioDto>();
+            CreateMap<Libro, ResponseLibroDto>();
         }
     }
 }
