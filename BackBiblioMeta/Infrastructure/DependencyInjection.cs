@@ -11,13 +11,13 @@ namespace Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             // Postgresql config
-            //services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
-            //{
-            //    options.UseNpgsql(configuration.GetConnectionString("WebApiDb"));
-            //});
+            services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseNpgsql(configuration.GetConnectionString("WebApiDb"));
+            });
 
             // InMemory Db
-            services.AddDbContext<ApplicationDbContext>((options) => options.UseInMemoryDatabase("TestDb"));
+            //services.AddDbContext<ApplicationDbContext>((options) => options.UseInMemoryDatabase("TestDb"));
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
             return services;

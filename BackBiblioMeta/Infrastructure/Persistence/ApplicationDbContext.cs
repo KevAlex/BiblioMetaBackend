@@ -10,8 +10,15 @@ namespace Infrastructure.Persistence
             : base(options)
         {
         }
-        public DbSet<Usuario> Usuarios { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Usuario>()
+                .HasMany(c => c.BookList)
+                .WithOne(e => e.Usuario);
+        }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Libro> Libros { get; set; }
         public async Task<int> SaveChangesAsync()
         {
             return await base.SaveChangesAsync();
